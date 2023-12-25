@@ -40,17 +40,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
 
     transition {
       days = 60
-      storage_class = "INTELLIGENT_TIERING"
-    }
-
-    transition {
-      days = 90
       storage_class = "GLACIER"
-    }
-
-    transition {
-      days = 180
-      storage_class = "DEEP_ARCHIVE"
     }
   }
 }
