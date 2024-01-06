@@ -9,6 +9,10 @@ resource "null_resource" "codecommit" {
     codecommit = aws_codecommit_repository.test.clone_url_ssh
   }
   # use ssh-keyscan to bypass auth once
+  # add your region to the url
+  # add the ip address of the url
+  # add your username
+  # add your email address
   provisioner "local-exec" {
     command = "ssh-keyscan -H git-codecommit.<region>.amazonaws.com >> ~/.ssh/known_hosts && ssh-keyscan -H <IP-address of git-codecommit.<region>.amazonaws.com> >> ~/.ssh/known_hosts && git clone ${self.triggers.codecommit} test && cp Dockerfile buildspec.yml test/ && cd test && git status && git config --local user.name 'network-charles' && git config --local user.email <email> && git add . && git commit -m 'Added some files' && git push -u origin master"
   }
