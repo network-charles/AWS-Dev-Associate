@@ -14,7 +14,7 @@ terraform {
   }
 }
 
-# Configure the AWS Provider for Account A
+# Configure the AWS Provider for Account
 provider "aws" {
   region = "eu-west-2"
 
