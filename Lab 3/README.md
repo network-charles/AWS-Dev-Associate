@@ -15,3 +15,5 @@ git commit -m 'Added some files'
 git push -u origin master
 ```
 
+### CODEDEPLOY
+<img width="888" alt="Screenshot 2024-01-10 at 3 28 48 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/48d66b4d-9cda-4d1e-bb50-33499640e1b4">
