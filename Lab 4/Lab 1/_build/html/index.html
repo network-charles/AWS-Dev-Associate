@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Docker ARP Analysis Documentation! &mdash; Docker ARP Analysis Guide v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=34cd777e"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requirements" href="pages/requirements.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Docker ARP Analysis Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/architecture-deployment-guide.html">Architecture Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/view-packet-captures.html">View Packet Captures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/clean-up.html">Clean-Up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/conclusion.html">Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/resources.html">Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Docker ARP Analysis Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to Docker ARP Analysis Documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-docker-arp-analysis-documentation">
+<h1>Welcome to Docker ARP Analysis Documentation!<a class="headerlink" href="#welcome-to-docker-arp-analysis-documentation" title="Link to this heading"></a></h1>
+<p>I’ve been immersing myself in CI/CD pipeline studies lately, and now that I’ve gotten a good grasp of it, I can finally dedicate my full attention to understanding container technologies. To start, I decided to focus on networking, which is the stack I’m most familiar with.
+In this simple how-to guide, I’ll walk you through observing the Address Resolution Protocol (ARP) in action within a Docker environment.
+An Address Resolution Protocol(ARP) allows a container to learn the MAC address of another device (in this lab, it’s the bridge and other containers) dynamically.
+Without an ARP, a ping between containers, external networks, or even a web request between containers and other devices fails.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/requirements.html">Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#install-homebrew-and-multipass">Install Homebrew and Multipass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#download-multipass">Download Multipass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#download-an-ubuntu-server-from-multipass">Download an Ubuntu Server from Multipass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#go-to-the-shell-of-the-ubuntu-server">Go to the Shell of the Ubuntu Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#install-docker">Install Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#mount-a-local-folder-to-an-ubuntu-directory">Mount a Local Folder to an Ubuntu Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/requirements.html#install-wireshark">Install Wireshark</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/architecture-deployment-guide.html">Architecture Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#enter-into-ubuntu-shell">Enter into Ubuntu Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#create-a-custom-bridge">Create a Custom Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#verify-new-bridge">Verify New Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#pull-alpine-image">Pull Alpine Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#open-new-terminal-tabs-and-capture-packets-in-each-bridge">Open New Terminal Tabs and Capture Packets in Each Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#create-2-containers-in-the-default-bridge-also-connect-them-to-the-custom-bridge">Create 2 Containers in the Default Bridge, Also Connect Them to the Custom Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#send-pings-to-the-internet-from-the-first-interface">Send Pings to the Internet From the First Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#send-pings-to-the-internet-from-the-second-interface">Send Pings to the Internet From the Second Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#view-mac-addresses-of-each-bridge-interface">View MAC Addresses of Each Bridge Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#view-mac-addresses-of-each-container-interface">View MAC Addresses of Each Container Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#end-packet-captures">End Packet Captures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture-deployment-guide.html#move-the-files-to-the-local-directory">Move the Files to the Local Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/view-packet-captures.html">View Packet Captures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/view-packet-captures.html#docker0-bridge-interface">Docker0 Bridge Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/view-packet-captures.html#docker1-bridge-interface">Docker1 Bridge Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/clean-up.html">Clean-Up</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/clean-up.html#stop-and-remove-the-container">Stop and Remove the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/clean-up.html#delete-custom-bridge">Delete Custom Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/clean-up.html#verify-network-list">Verify Network List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/clean-up.html#stop-ubuntu-server">Stop Ubuntu Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/conclusion.html">Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/resources.html">Resources</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pages/requirements.html" class="btn btn-neutral float-right" title="Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Charles Uneze.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
