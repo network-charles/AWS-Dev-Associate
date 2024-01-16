@@ -215,6 +215,9 @@ View MAC Addresses of Each Bridge Interface
 
 View MAC addresses of Docker0 and Docker1 bridge interfaces.
 
+..  Note::
+   The Organizationally Unique Identifier (OUI) of all Docker network adapters is **02:42**. So expect all docker container MAC addresses to begin with that.
+
 .. code-block:: bash
 
     # Terminal-1 Ubuntu
