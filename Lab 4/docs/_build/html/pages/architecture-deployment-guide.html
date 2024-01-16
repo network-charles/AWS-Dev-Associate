@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture Deployment Guide &mdash; Docker ARP Analysis Guide v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=34cd777e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="View Packet Captures" href="view-packet-captures.html" />
+    <link rel="prev" title="Requirements" href="requirements.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Docker ARP Analysis Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enter-into-ubuntu-shell">Enter into Ubuntu Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-custom-bridge">Create a Custom Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verify-new-bridge">Verify New Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-alpine-image">Pull Alpine Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#open-new-terminal-tabs-and-capture-packets-in-each-bridge">Open New Terminal Tabs and Capture Packets in Each Bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker0">docker0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker1">docker1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-2-containers-in-the-default-bridge-also-connect-them-to-the-custom-bridge">Create 2 Containers in the Default Bridge, Also Connect Them to the Custom Bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-2-containers-in-the-default-bridge">Create 2 Containers in the Default Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connect-containers-to-another-network">Connect Containers to Another Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#send-pings-to-the-internet-from-the-first-interface">Send Pings to the Internet From the First Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#send-pings-to-the-internet-from-the-second-interface">Send Pings to the Internet From the Second Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view-mac-addresses-of-each-bridge-interface">View MAC Addresses of Each Bridge Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view-mac-addresses-of-each-container-interface">View MAC Addresses of Each Container Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bridge-network">Bridge network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-bridge-network">Custom bridge network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#end-packet-captures">End Packet Captures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packet-capture-1">Packet Capture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packet-capture-2">Packet Capture 2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#move-the-files-to-the-local-directory">Move the Files to the Local Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="view-packet-captures.html">View Packet Captures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clean-up.html">Clean-Up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Docker ARP Analysis Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Architecture Deployment Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pages/architecture-deployment-guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture-deployment-guide">
+<h1>Architecture Deployment Guide<a class="headerlink" href="#architecture-deployment-guide" title="Link to this heading"></a></h1>
+<p>I have a simple architecture that deploys two docker containers in two different subnets. In docker, you can attach one container to several subnets. This is achieved by a new interface being created and assigned to that subnet.</p>
+<img alt="../_images/architecture.png" src="../_images/architecture.png" />
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Network Architecture Table</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Device Name</p></td>
+<td><p>Interface</p></td>
+<td><p>IP Address</p></td>
+<td><p>Subnet Mask</p></td>
+</tr>
+<tr class="row-even"><td><p>Alpine1</p></td>
+<td><p>eth0/0</p></td>
+<td><p>172.17.0.2</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alpine1</p></td>
+<td><p>eth0/1</p></td>
+<td><p>172.17.0.4</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Alpine2</p></td>
+<td><p>eth0/0</p></td>
+<td><p>172.18.0.3</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alpine2</p></td>
+<td><p>eth0/1</p></td>
+<td><p>172.18.0.5</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Kernel/Ubuntu VM</p></td>
+<td><p>eth0/0</p></td>
+<td><p>192.168.64.4</p></td>
+<td><p>255.255.255.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multipass</p></td>
+<td><p>eth0/1</p></td>
+<td><p>192.168.64.1</p></td>
+<td><p>255.255.255.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Bridge</p></td>
+<td><p>docker0</p></td>
+<td><p>172.17.0.1</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bridge</p></td>
+<td><p>veth0</p></td>
+<td><p>–</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p>Bridge</p></td>
+<td><p>veth1</p></td>
+<td><p>–</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p>Custom_Bridge</p></td>
+<td><p>docker1</p></td>
+<td><p>172.18.0.1</p></td>
+<td><p>255.255.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom_Bridge</p></td>
+<td><p>veth0/0</p></td>
+<td><p>–</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p>Custom_Bridge</p></td>
+<td><p>veth0/1</p></td>
+<td><p>–</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+<section id="enter-into-ubuntu-shell">
+<h2>Enter into Ubuntu Shell<a class="headerlink" href="#enter-into-ubuntu-shell" title="Link to this heading"></a></h2>
+<p>Enter Into the Shell of the Ubuntu Server Again</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Mac/Linux</span>
+multipass<span class="w"> </span>shell<span class="w"> </span>ubuntu
+Create<span class="w"> </span>a<span class="w"> </span>New<span class="w"> </span>Network
+</pre></div>
+</div>
+<p>I noticed that in docker, you only specify a subnet and mask. This makes sense because if you are deploying this on AWS, a VPC will be defined already, all you need to do is create a new subnet mask for your containerized environment.</p>
+</section>
+<section id="create-a-custom-bridge">
+<h2>Create a Custom Bridge<a class="headerlink" href="#create-a-custom-bridge" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Ubuntu</span>
+docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+-o<span class="w"> </span>com.docker.network.bridge.name<span class="o">=</span>docker1<span class="w"> </span><span class="se">\</span>
+--subnet<span class="o">=</span><span class="m">172</span>.18.0.0/24<span class="w"> </span><span class="se">\</span>
+--gateway<span class="o">=</span><span class="m">172</span>.18.0.253<span class="w"> </span><span class="se">\</span>
+custom_bridge
+</pre></div>
+</div>
+</section>
+<section id="verify-new-bridge">
+<h2>Verify New Bridge<a class="headerlink" href="#verify-new-bridge" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Ubuntu</span>
+
+<span class="c1"># This is a simulated command and output</span>
+ubuntu@ubuntu:~$<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>ls
+NETWORK<span class="w"> </span>ID<span class="w">     </span>NAME<span class="w">            </span>DRIVER<span class="w">    </span>SCOPE
+6e5ffkvms8c3<span class="w">   </span>bridge<span class="w">          </span>bridge<span class="w">    </span><span class="nb">local</span>
+d3b0029faed7<span class="w">   </span>custom_bridge<span class="w">   </span>bridge<span class="w">    </span><span class="nb">local</span><span class="w"> </span>&lt;<span class="o">==</span>
+e9f55dsdf605<span class="w">   </span>host<span class="w">            </span>host<span class="w">      </span><span class="nb">local</span>
+e9708nj5179a<span class="w">   </span>none<span class="w">            </span>null<span class="w">      </span><span class="nb">local</span>
+</pre></div>
+</div>
+</section>
+<section id="pull-alpine-image">
+<h2>Pull Alpine Image<a class="headerlink" href="#pull-alpine-image" title="Link to this heading"></a></h2>
+<p>I love using Alpine Linux because it’s lightweight.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Ubuntu</span>
+docker<span class="w"> </span>pull<span class="w"> </span>alpine
+Open<span class="w"> </span>a<span class="w"> </span>New<span class="w"> </span>Terminal
+</pre></div>
+</div>
+</section>
+<section id="open-new-terminal-tabs-and-capture-packets-in-each-bridge">
+<h2>Open New Terminal Tabs and Capture Packets in Each Bridge<a class="headerlink" href="#open-new-terminal-tabs-and-capture-packets-in-each-bridge" title="Link to this heading"></a></h2>
+<section id="docker0">
+<h3>docker0<a class="headerlink" href="#docker0" title="Link to this heading"></a></h3>
+<p>Execute this command to open a new tab. <cite>⌘ + T</cite></p>
+<p>Then enter the Ubuntu shell</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-2 Mac</span>
+multipass<span class="w"> </span>shell<span class="w"> </span>ubuntu
+Listen<span class="w"> </span><span class="k">for</span><span class="w"> </span>ARP<span class="w"> </span>Packets<span class="w"> </span><span class="k">in</span><span class="w"> </span>Each<span class="w"> </span>Bridge
+</pre></div>
+</div>
+<p>Now that the Ubuntu shell has been initialized, execute the below command to capture all packets.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-2 Ubuntu</span>
+sudo<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>docker0<span class="w"> </span>-w<span class="w"> </span>capture_docker_0.pcap
+</pre></div>
+</div>
+<p>Open a third terminal tab <cite>⌘ + T</cite></p>
+</section>
+<section id="docker1">
+<h3>docker1<a class="headerlink" href="#docker1" title="Link to this heading"></a></h3>
+<p>Execute another command to listen for all packets in the docker1 bridge interface.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-3 Ubuntu</span>
+sudo<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>docker1<span class="w"> </span>-w<span class="w"> </span>capture_docker_1.pcap
+</pre></div>
+</div>
+</section>
+</section>
+<section id="create-2-containers-in-the-default-bridge-also-connect-them-to-the-custom-bridge">
+<h2>Create 2 Containers in the Default Bridge, Also Connect Them to the Custom Bridge<a class="headerlink" href="#create-2-containers-in-the-default-bridge-also-connect-them-to-the-custom-bridge" title="Link to this heading"></a></h2>
+<section id="create-2-containers-in-the-default-bridge">
+<h3>Create 2 Containers in the Default Bridge<a class="headerlink" href="#create-2-containers-in-the-default-bridge" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-2 Ubuntu</span>
+
+<span class="c1"># Create containers in the default bridge</span>
+docker<span class="w"> </span>run<span class="w"> </span>-itd<span class="w"> </span><span class="se">\</span>
+--name<span class="o">=</span>alpine1<span class="w"> </span><span class="se">\</span>
+--ip<span class="o">=</span><span class="m">172</span>.17.0.2<span class="w"> </span><span class="se">\</span>
+alpine
+
+docker<span class="w"> </span>run<span class="w"> </span>-itd<span class="w"> </span><span class="se">\</span>
+--name<span class="o">=</span>alpine2<span class="w"> </span><span class="se">\</span>
+--ip<span class="o">=</span><span class="m">172</span>.17.0.4<span class="w"> </span><span class="se">\</span>
+alpine
+</pre></div>
+</div>
+</section>
+<section id="connect-containers-to-another-network">
+<h3>Connect Containers to Another Network<a class="headerlink" href="#connect-containers-to-another-network" title="Link to this heading"></a></h3>
+<p>Connect new interfaces in the containers to another network.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect alpine1 to custom_bridge with IP 172.18.0.3</span>
+docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>--ip<span class="o">=</span><span class="m">172</span>.18.0.3<span class="w"> </span>custom_bridge<span class="w"> </span>alpine1
+
+<span class="c1"># Connect alpine2 to custom_bridge with IP 172.18.0.5</span>
+docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>--ip<span class="o">=</span><span class="m">172</span>.18.0.5<span class="w"> </span>custom_bridge<span class="w"> </span>alpine2
+</pre></div>
+</div>
+</section>
+</section>
+<section id="send-pings-to-the-internet-from-the-first-interface">
+<h2>Send Pings to the Internet From the First Interface<a class="headerlink" href="#send-pings-to-the-internet-from-the-first-interface" title="Link to this heading"></a></h2>
+<p>Ping google.com four times in each container from <cite>bridge</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping from alpine1 with IP 172.17.0.2</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>alpine1<span class="w"> </span>ping<span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.17.0.2<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span>google.com
+
+<span class="c1"># Ping from alpine2 with IP 172.17.0.4</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>alpine2<span class="w"> </span>ping<span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.17.0.4<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span>google.com
+</pre></div>
+</div>
+</section>
+<section id="send-pings-to-the-internet-from-the-second-interface">
+<h2>Send Pings to the Internet From the Second Interface<a class="headerlink" href="#send-pings-to-the-internet-from-the-second-interface" title="Link to this heading"></a></h2>
+<p>Ping google.com four times in each container from <cite>custom_bridge</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping from alpine1 with IP 172.18.0.3</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>alpine1<span class="w"> </span>ping<span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.18.0.3<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span>google.com
+
+<span class="c1"># Ping from alpine2 with IP 172.18.0.5</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>alpine2<span class="w"> </span>ping<span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.18.0.5<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span>google.com
+</pre></div>
+</div>
+</section>
+<section id="view-mac-addresses-of-each-bridge-interface">
+<span id="id1"></span><h2>View MAC Addresses of Each Bridge Interface<a class="headerlink" href="#view-mac-addresses-of-each-bridge-interface" title="Link to this heading"></a></h2>
+<p>View MAC addresses of Docker0 and Docker1 bridge interfaces.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Ubuntu</span>
+ip<span class="w"> </span>--brief<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;docker0|docker1&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1, $3}&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jump to <a class="reference internal" href="view-packet-captures.html#view-packet-captures"><span class="std std-ref">View Packet Captures</span></a></p>
+</div>
+<p>Output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker0<span class="w"> </span><span class="m">02</span>:42:28:a8:cb:f5
+docker1<span class="w"> </span><span class="m">02</span>:42:7c:61:6d:f0
+</pre></div>
+</div>
+</section>
+<section id="view-mac-addresses-of-each-container-interface">
+<span id="id2"></span><h2>View MAC Addresses of Each Container Interface<a class="headerlink" href="#view-mac-addresses-of-each-container-interface" title="Link to this heading"></a></h2>
+<p>View MAC addresses of containers in <cite>bridge</cite> and <cite>custom_bridge</cite> networks.</p>
+<section id="bridge-network">
+<h3>Bridge network<a class="headerlink" href="#bridge-network" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1 Ubuntu</span>
+docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>bridge<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Containers}}{{.Name}}: {{.MacAddress}}{{&quot;\n&quot;}}{{end}}&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jump to <a class="reference internal" href="view-packet-captures.html#view-packet-captures"><span class="std std-ref">View Packet Captures</span></a></p>
+</div>
+<p>Output-1:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alpine1:<span class="w"> </span><span class="m">02</span>:42:ac:11:00:02
+alpine2:<span class="w"> </span><span class="m">02</span>:42:ac:11:00:03
+</pre></div>
+</div>
+</section>
+<section id="custom-bridge-network">
+<h3>Custom bridge network<a class="headerlink" href="#custom-bridge-network" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-2 Ubuntu</span>
+docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>custom_bridge<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Containers}}{{.Name}}: {{.MacAddress}}{{&quot;\n&quot;}}{{end}}&#39;</span>
+</pre></div>
+</div>
+<p>Output-2:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alpine1:<span class="w"> </span><span class="m">02</span>:42:ac:12:00:03
+alpine2:<span class="w"> </span><span class="m">02</span>:42:ac:12:00:05
+</pre></div>
+</div>
+</section>
+</section>
+<section id="end-packet-captures">
+<h2>End Packet Captures<a class="headerlink" href="#end-packet-captures" title="Link to this heading"></a></h2>
+<section id="packet-capture-1">
+<h3>Packet Capture 1<a class="headerlink" href="#packet-capture-1" title="Link to this heading"></a></h3>
+<p>Stop ARP packet capture in Terminal-2 Ubuntu.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-2 Ubuntu</span>
+<span class="s2">&quot;control + c&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="packet-capture-2">
+<h3>Packet Capture 2<a class="headerlink" href="#packet-capture-2" title="Link to this heading"></a></h3>
+<p>Stop ARP packet capture in Terminal-3 Ubuntu.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-3 Ubuntu</span>
+<span class="s2">&quot;control + c&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="move-the-files-to-the-local-directory">
+<h2>Move the Files to the Local Directory<a class="headerlink" href="#move-the-files-to-the-local-directory" title="Link to this heading"></a></h2>
+<p>Move captured packet files to the local directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terminal-1, 2, or 3 Ubuntu</span>
+mv<span class="w"> </span>capture_docker_0.pcap<span class="w"> </span>/mnt
+mv<span class="w"> </span>capture_docker_1.pcap<span class="w"> </span>/mnt
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="requirements.html" class="btn btn-neutral float-left" title="Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="view-packet-captures.html" class="btn btn-neutral float-right" title="View Packet Captures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Charles Uneze.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
