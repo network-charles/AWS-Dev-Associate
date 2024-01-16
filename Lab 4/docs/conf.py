@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Docker ARP Analysis Guide'
+project = 'Docker ARP Analysis Documentation'
 copyright = '2024, Charles Uneze'
 author = 'Charles Uneze'
 release = 'v0.1'
