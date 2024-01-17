@@ -3,7 +3,7 @@ Requirements
 
 I recently made the switch to a Mac and found using `Multipass <https://multipass.run/>`_ from Canonical simpler than spinning up a VM with tools like Virtualbox. However, when it comes to container networking labs, non-Linux systems are not recommended. While I downloaded Docker Desktop for Mac, I had trouble seeing all the Docker network interfaces.
 For Windows users, I will advise you to use WSL2 instead, it’s easier to deploy and manage compared to having to use a virtual machine like Virtualbox.
-Keep in mind that the Ubuntu installation requirement is only for Mac and Linux users. This guide will use two terminal tabs throughout.
+Keep in mind that the Ubuntu installation requirement is only for Mac and Linux users. This guide will use three terminal tabs throughout.
 
 Install Homebrew and Multipass
 -------------------------------
