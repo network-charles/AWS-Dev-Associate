@@ -43,11 +43,11 @@ I have a simple architecture that deploys two docker containers in two different
      - 172.17.0.1
      - 255.255.0.0
    * - Bridge
-     - veth0
+     - veth0/0
      - --
      - --
    * - Bridge
-     - veth1
+     - veth0/1
      - --
      - --
    * - Custom_Bridge
