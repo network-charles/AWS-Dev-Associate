@@ -1,5 +1,5 @@
 The user_data attached to the EC2 is used to install the codedeploy agent.
-For some unknown reasons, condiguring Systems Manager to install the agent using
+For some unknown reasons, configuring Systems Manager to install the agent using
 aws ssm resources keeps failing.
 
 After doing a `terraform apply -auto-approve` wait for a `SUCCEEDED` SNS notification
