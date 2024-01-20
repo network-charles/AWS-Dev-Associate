@@ -10,4 +10,4 @@
 
 # Lab 3
 ## Deploy a Configuration to an EC2 Using CodeDeploy
-<img width="591" alt="Screenshot 2024-01-20 at 5 15 31 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/0e13fd9a-c4db-4784-ae2d-25a9b150458c">
+<img width="591" alt="Screenshot 2024-01-20 at 8 34 36 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/c405238c-d875-4050-8fa1-bfd6f13af8c2">
