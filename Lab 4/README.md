@@ -1,5 +1,5 @@
 # Build Momentum With a Simple Docker Lab Hosted Locally
-![Alt text](https://res.cloudinary.com/practicaldev/image/fetch/s--VFxvWmAj--/c_limit%252Cf_auto%252Cfl_progressive%252Cq_auto%252Cw_800/https%253A//dev-to-uploads.s3.amazonaws.com/uploads/articles/unu933ml2k86emcydhj7.png)
+![unu933ml2k86emcydhj7](https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/84dc578f-bf7e-4d88-ad6c-9a70211a41b4)
 
 [Read the documentaion](https://dev.to/charlesuneze/docker-arp-analysis-guide-2fe5)
 
