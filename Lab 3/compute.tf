@@ -30,7 +30,8 @@ resource "null_resource" "codecommit" {
       cp -r website/* codedeploy/ && cd codedeploy/ && 
       git status && git config --local user.name ${var.user_name} && 
       git config --local user.email ${var.email} && git add -A && 
-      git commit -m 'Added some files' && git push -u origin master
+      git commit -m 'Added some files' && 
+      git push -u origin main
     EOT
   }
 }
