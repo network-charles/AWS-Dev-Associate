@@ -19,6 +19,9 @@ resource "null_resource" "codecommit" {
     codecommit = aws_codecommit_repository.codedeploy.clone_url_http
   }
 
+  # set up https connection to codecommit 
+  # https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html
+  
   # add your username
   # add your email address
   provisioner "local-exec" {
