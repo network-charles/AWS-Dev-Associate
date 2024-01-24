@@ -10,7 +10,7 @@
 
 # Lab 3
 ## Deploy a Configuration to an EC2 Using CodeDeploy
-<img width="591" alt="Screenshot 2024-01-20 at 8 34 36 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/c405238c-d875-4050-8fa1-bfd6f13af8c2">
+<img width="725" alt="Screenshot 2024-01-24 at 4 48 28 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/83112a32-402f-4d7f-916b-e3a77ee696a1">
 
 # Lab 4
 ## Deploy an NGINX Container in ECS and Establish Communication to an AWS Service like S3
