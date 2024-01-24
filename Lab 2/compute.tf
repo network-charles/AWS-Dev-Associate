@@ -11,15 +11,10 @@ resource "null_resource" "codecommit" {
   # set up https connection to codecommit 
   # https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html
   
-  # use ssh-keyscan to bypass auth once
-  # add your region to the url
-  # add the ip address of the url
   # add your username
   # add your email address
   provisioner "local-exec" {
     command = <<-EOT
-      ssh-keyscan -H git-codecommit.${var.region}.amazonaws.com >> ~/.ssh/known_hosts &&
-      ssh-keyscan -H <IP-address of git-codecommit.${var.region}.amazonaws.com> >> ~/.ssh/known_hosts &&
       git clone ${self.triggers.codecommit} test &&
       cp Dockerfile buildspec.yml test/ &&
       cd test &&
