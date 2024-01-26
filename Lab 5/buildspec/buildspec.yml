@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Installing Terraform...
+      - cd buildspec/
+      - chmod +x install_terraform.sh
+      - ./install_terraform.sh
+      - echo Going into the beanstalk_infrastructure/ folder
+      - cd ../beanstalk_infrastructure
+      - echo Running Terraform init...
+      - terraform init
+      - echo Confirming EC2 credential assumed role...
+      - aws sts get-caller-identity
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Running Terraform plan...
+      - terraform plan
+      - echo Running Terraform apply...
+      - terraform apply -auto-approve
+      - echo Sleeping for 60 seconds...
+      - sleep 60
+      - echo Now waking up after 60 seconds...
+      - echo Running Terraform destroy...
+      - terraform destroy -auto-approve
