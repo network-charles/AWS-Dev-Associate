@@ -15,3 +15,7 @@
 # Lab 4
 ## Deploy an NGINX Container in ECS and Establish Communication to an AWS Service like S3
 <img width="698" alt="Screenshot 2024-01-23 at 8 10 52 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/ad6b225d-1fd4-4daf-b783-936be9da9dbc">
+
+# Lab 5
+## Deploy and Manage an Elastic Beanstalk Enviroment that is Defined as a Terraform Script Inside CodePipeline
+<img width="591" alt="Screenshot 2024-01-26 at 8 34 09 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/af061279-1349-49f3-87cf-3064a3429e48">
