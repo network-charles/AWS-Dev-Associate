@@ -113,7 +113,7 @@ resource "aws_elastic_beanstalk_configuration_template" "flask_template" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName" 
-    value     = "CharlesUneze"
+    value     = ""
   }
 
   setting {
