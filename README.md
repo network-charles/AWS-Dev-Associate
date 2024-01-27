@@ -18,4 +18,4 @@
 
 # Lab 5
 ## Deploy and Manage an Elastic Beanstalk Enviroment that is Defined as a Terraform Script Inside CodePipeline
-<img width="591" alt="Screenshot 2024-01-26 at 8 34 09 PM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/af061279-1349-49f3-87cf-3064a3429e48">
+<img width="591" alt="Screenshot 2024-01-27 at 11 35 21 AM" src="https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/0bcc6d1a-eb40-46f3-859b-f31f116d603e">
