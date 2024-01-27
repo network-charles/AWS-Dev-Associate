@@ -1,5 +1,13 @@
 # AWS-Dev-Associate
 
+# Table of Contents
+
+1. [Lab 1: Configure S3 Lifecycle](#lab-1)
+2. [Lab 2: Build a Docker Image Using CodeBuild and Push it to ECR](#lab-2)
+3. [Lab 3: Deploy a Configuration to an EC2 Using CodeDeploy](#lab-3)
+4. [Lab 4: Deploy an NGINX Container in ECS and Establish Communication to an AWS Service like S3](#lab-4)
+5. [Lab 5: Deploy and Manage an Elastic Beanstalk Environment that is Defined as a Terraform Script Inside CodePipeline](#lab-5)
+
 # Lab 1 
 ## Configure S3 Lifecycle
 ![Screenshot (1030)](https://github.com/network-charles/AWS-Dev-Associate/assets/30233365/e548688d-44ab-4452-8ca5-b2cb7083df5b)
