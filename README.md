@@ -19,6 +19,7 @@ dynamodb_table = "table-name"
 4. [Lab 4: Deploy an NGINX Container in ECS and Establish Communication to an AWS Service like S3](#lab-4)
 5. [Lab 5: Deploy and Manage an Elastic Beanstalk Environment that is Defined as a Terraform Script Inside CodePipeline](#lab-5)
 6. [Lab 6: Use Cognito to Secure a CRUD API Built with Lambda and DynamoDB](#lab-6)
+7. [Lab 7: Using Amazon EFS file systems with Amazon ECS](#lab-7)
 
 # Lab 1 
 ## Configure S3 Lifecycle
