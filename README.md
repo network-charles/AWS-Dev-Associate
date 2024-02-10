@@ -6,7 +6,7 @@ Use the below to set and initialize your backend config variables
 >backend.conf
 ```
 bucket = "bucket-name"
-key = "onject-name"
+key = "object-name"
 region = "eu-west-2"
 dynamodb_table = "table-name"
 ```
