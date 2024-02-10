@@ -1,5 +1,16 @@
 # AWS-Dev-Associate
 
+Use the below to set and initialize your backend config variables
+`terraform init -backend-config=backend.conf`
+### For example
+>backend.conf
+```
+bucket = "bucket-name"
+key = "onject-name"
+region = "eu-west-2"
+dynamodb_table = "table-name"
+```
+
 # Table of Contents
 
 1. [Lab 1: Configure S3 Lifecycle](#lab-1)
@@ -32,3 +43,7 @@
 # Lab 6
 ## Use Cognito to Secure a CRUD API Built with Lambda and DynamoDB
 ![Lab 6](./Images/Lab%206.png)
+
+# Lab 7
+## Using Amazon EFS file systems with Amazon ECS
+![Lab 7](./Images/Lab%207.png)

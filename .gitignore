@@ -1,0 +1,8 @@
+*.terraform.lock.hcl
+*.conf
+.terraform/
+.DS_Store
+iamadmin_accessKeys.csv
+iamadmin_https_codecommit_cred.csv
+myKey.pem
+task_id.txt
