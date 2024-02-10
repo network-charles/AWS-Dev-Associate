@@ -20,6 +20,7 @@ dynamodb_table = "table-name"
 5. [Lab 5: Deploy and Manage an Elastic Beanstalk Environment that is Defined as a Terraform Script Inside CodePipeline](#lab-5)
 6. [Lab 6: Use Cognito to Secure a CRUD API Built with Lambda and DynamoDB](#lab-6)
 7. [Lab 7: Using Amazon EFS file systems with Amazon ECS](#lab-7)
+8. [Lab 8: Trigger S3 Event to Lambda and send logs to X-ray and Cloudwatch](#lab-8)
 
 # Lab 1 
 ## Configure S3 Lifecycle
@@ -48,3 +49,7 @@ dynamodb_table = "table-name"
 # Lab 7
 ## Using Amazon EFS file systems with Amazon ECS
 ![Lab 7](./Images/Lab%207.png)
+
+# Lab 8
+## Trigger S3 Event to Lambda and send logs to X-ray and Cloudwatch
+![Lab 8](./Images/Lab%208.png)
