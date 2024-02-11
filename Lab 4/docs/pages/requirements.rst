@@ -38,7 +38,7 @@ Simple and fast, right?
 .. code-block:: bash
 
    # Terminal-1 Mac/Linux
-   multipass launch jammy --name=ubuntu --cpus=4 --disk=20G --memory=8G
+   multipass launch jammy --name=ubuntu --cpus=1 --disk=8G --memory=1G
 
 jammy is the image `name <https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-a-specific-image>`_ for Ubuntu server version 22.04.
 
