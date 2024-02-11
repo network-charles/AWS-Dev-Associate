@@ -9,7 +9,7 @@
 project = 'Docker ARP Analysis Documentation'
 copyright = '2024, Charles Uneze'
 author = 'Charles Uneze'
-release = 'v0.1'
+release = 'v0.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
