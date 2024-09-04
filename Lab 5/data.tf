@@ -1,3 +1,7 @@
+data "aws_sns_topic" "buildspec" {
+  name = "All_Topics"
+}
+
 data "aws_iam_policy" "AWSCodeCommitFullAccess" {
   name = "AWSCodeCommitFullAccess"
 }
